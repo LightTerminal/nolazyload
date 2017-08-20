@@ -14,8 +14,8 @@
 
 //图片的真实标签 pics's real tags
 let nolz_lazytags = ["src9","data-url","data-ks-lazyload","data-ks-lazyload-custom","data-lazy-load-src","data-lazyload","original","file","data-src","data-cover","data-original","data-thumb","real_src","src2","data-imageurl","data-defer-src","data-placeholder","origin-src","data-actualsrc","org_src","data-lazyload-src","src1","#src"];
+//已加载图片 loaded pics
 let nolz_lazypics = [];
-//console.log(nolazypic);
 
 //直接加载图片,看起来会比缓存快一些 instant load pics,it will be seems faster then cache 
 let nolz_inspics = ["item.taobao.com","detail.tmall.com","www.youtube.com","detail.1688.com","www.zhihu.com","mp.weixin.qq.com"]; 

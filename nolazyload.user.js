@@ -18,7 +18,7 @@ let nolz_lazytags = ["src9","data-url","data-ks-lazyload","data-ks-lazyload-cust
 let nolz_lazypics = [];
 
 //直接加载图片,看起来会比缓存快一些 instant load pics,it will be seems faster then cache 
-let nolz_inspics = ["item.taobao.com","detail.tmall.com","www.youtube.com","detail.1688.com","www.zhihu.com","mp.weixin.qq.com"]; 
+let nolz_inspics = ["item.taobao.com","detail.tmall.com","detail.1688.com","mp.weixin.qq.com"]; 
 
 //白名单 以下域名不启用脚本 white list ,at those domains ,this script wont's work 
 let nolz_wlist = ["search.taobao.com","list.tmall.com","s.taobao.com"];
@@ -37,9 +37,9 @@ let nolz_nolazyload = function() //主函数
         
         let hostn = document.location.hostname;
         
-        for(let i=0; i<wlist.length; i++)
+        for(let i=0; i<nolz_wlist.length; i++)
         {
-            if(hostn.indexOf(wlist[i])>-1) //检测白名单
+            if(hostn.indexOf(nolz_wlist[i])>-1) //检测白名单
             {
                 return;
             }
@@ -49,16 +49,16 @@ let nolz_nolazyload = function() //主函数
         
         for(let i=0;i<imgs.length;i++) //所有图片循环
         {
-            for(let j=0; j<lazytags.length; j++) //所有lazy标签循环
+            for(let j=0; j<nolz_lazytags.length; j++) //所有lazy标签循环
             {
                 for(let k=0; k<imgs[i].attributes.length; k++) //图片的所有属性循环
                 {
-                    if(imgs[i].attributes[k].nodeName == lazytags[j])
+                    if(imgs[i].attributes[k].nodeName == nolz_lazytags[j])
                     {
                         //console.log(imgs[i].attributes[k].nodeName);
                         //console.log(i);
                         if(imgs[i].attributes[k].nodeValue != imgs[i].src){
-                            preload(imgs[i].attributes[k].nodeValue, lazytags[j], i);
+                            nolz_preload(imgs[i].attributes[k].nodeValue,nolz_lazytags[j], i);
                         }
                         
                     }
@@ -72,12 +72,12 @@ let nolz_nolazyload = function() //主函数
     }
 }
 
-function preload(url,tag,img)
+let nolz_preload = function(url,tag,img)
 {
     let loaded = false;
-    for(let i = 0; i<lazypics.length;i++) //检查是否加载过
+    for(let i = 0; i<nolz_lazypics.length;i++) //检查是否加载过
     {
-        if(url == lazypics[i])
+        if(url == nolz_lazypics[i])
         {
             loaded = true;
             break;
@@ -89,14 +89,14 @@ function preload(url,tag,img)
     }
     else
     {
-        loading(url,tag,img);
+        nolz_loading(url,tag,img);
         console.log("preload "+url);
     }
     
 }
-function loading(url,tag,img)
+let nolz_loading = function(url,tag,img)
 {
-    if(di_check())
+    if(nolz_di_check())
     {
         document.images[img].src=url;
         document.images[img].removeAttribute(tag);
@@ -105,15 +105,15 @@ function loading(url,tag,img)
     {
         new Image().src = url;
     }
-    lazypics.push(url)
+    nolz_lazypics.push(url)
 }
 
-function di_check()
+let nolz_di_check = function()
 {
-    let hn = location.hostname;
-    for(let i=0;i<inspics.length;i++)
+    let hn = document.location.hostname;
+    for(let i=0;i<nolz_inspics.length;i++)
     {
-        if(hn.indexOf(inspics[i])>-1) //检测页面hostname里是否包含直接加载域名
+        if(hn.indexOf(nolz_inspics[i])>-1) //检测页面hostname里是否包含直接加载域名
         {
             return true;
         }

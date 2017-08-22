@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name nolazyload
 // @namespace https://greasyfork.org/zh-CN/scripts/791-nolazyload
-// @version    7.0.0
+// @version    7.0.1
 // @description  将lazyload图片提前读进缓存,提高加载速度 preload all lazyload pictures at once
 // @include *
 // @grant none

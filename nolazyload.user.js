@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name nolazyload
 // @namespace https://greasyfork.org/zh-CN/scripts/791-nolazyload
-// @version    7.0.1
+// @version    7.0.3
 // @description  将lazyload图片提前读进缓存,提高加载速度 preload all lazyload pictures at once
 // @include *
 // @grant none
@@ -103,7 +103,17 @@ let nolz_loading = function(url,tag,img)
     }
     else
     {
-        new Image().src = url;
+        //new Image().src = url;//预加载图片
+        //添加 img
+        let img = document.createElement("img");
+
+        //设置 img 属性，如 id
+        img.setAttribute("width", "0");
+        img.setAttribute("height", "0");
+        
+        //设置 img 图片地址
+        img.src = url;
+        document.body.appendChild(img);
     }
     nolz_lazypics.push(url)
 }
